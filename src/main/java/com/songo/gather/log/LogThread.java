@@ -3,8 +3,6 @@
  */
 package com.songo.gather.log;
 
-import java.util.concurrent.ThreadFactory;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
