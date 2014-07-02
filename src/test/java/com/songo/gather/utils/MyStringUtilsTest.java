@@ -31,12 +31,18 @@ public class MyStringUtilsTest {
 	@Test
 	public void testSplitSimpleString() {
 		String row = "!1!2!3!4!5!6!7!";
-		char gap = '!';
-		List<String> lists = MyStringUtils.splitSimpleString(row, gap);
+		List<String> lists = MyStringUtils.splitSimpleString(row, "!");
+		
 		System.out.println(lists);
-		int i = 0;
-		System.out.println(i ++);
-		System.out.println(++ i);
+	}
+	private final String testReplaceString = "abcd!efgh@ijk$LMNG&OP^q,rst?qwe";
+	
+	@Test
+	public void testReplaceUnifiedDelimiter() {
+		String newText = MyStringUtils.replaceUnifiedDelimiter(testReplaceString, ",");
+		System.out.println(newText);
+		List<String> lists = MyStringUtils.splitSimpleString(testReplaceString, ",", true);
+		System.out.println(lists);
 	}
 
 }

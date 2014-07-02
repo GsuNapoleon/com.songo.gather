@@ -6,7 +6,7 @@ package com.songo.gather.bbs.oschina;
 import java.lang.reflect.Field;
 
 /**
- * <p>decription:</p>
+ * <p>decription:2 + 2 = 5</p>
  * <p>date:2014年6月23日 下午6:03:45</p>
  * @author gsu·napoleon
  */
@@ -21,7 +21,7 @@ public class MagicNumber {
 	 * @throws NoSuchFieldException 
 	 */
 	public static void main(String[] args) throws Exception {
-		Class cache = Integer.class.getDeclaredClasses()[0];
+		Class<?> cache = Integer.class.getDeclaredClasses()[0];
         Field c = cache.getDeclaredField("cache");
         c.setAccessible(true);
         Integer[] array = (Integer[]) c.get(cache);
