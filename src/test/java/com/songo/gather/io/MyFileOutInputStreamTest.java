@@ -6,6 +6,8 @@ package com.songo.gather.io;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.common.base.Splitter;
+
 /**
  * <p>decription:</p>
  * <p>date:2014年6月18日 下午3:36:43</p>
