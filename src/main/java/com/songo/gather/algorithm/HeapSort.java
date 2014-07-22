@@ -34,12 +34,6 @@ public class HeapSort {
 		return index / 2;
 	}
 	
-	private void swap(int swap1, int swap2) {
-		swap1 = swap1 ^ swap2;
-		swap2 = swap1 ^ swap2;
-		swap1 = swap1 ^ swap2;
-	}
-	
 	private void maxHeapify(int [] sorts, int index, int length) {
 		int leftIndex = left(index);
 		int rightIndex = right(index);

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gather-sql-list>
+	<sql description="">
+		SELECT m.Title, m.ReleaseDate
+		FROM Magazines m 
+		join (select MagId from Stock s group by MagId having  count(*) = sum(Format = 'Online')) sm
+     	on m.MagId = sm.MagId;
+	</sql>
+	<sql description="How can I get the maximum sequential in number range?">
+		select (num - seqnum), count(*) as NumInSequence
+		from (select t.*, row_number() over (order by num) as seqnum
+		      from t
+		     ) t
+		group by (num - seqnum)
+	</sql>
+	<sql description="Inner Join, only return 1 row for each product">
+		SELECT min(pri.FileName) as FileName, Title, tc.Quantity, tc.FK_ProductID
+		FROM [Ordering].[CartContents] tc  INNER JOIN
+		     [Ordering].[Products] p
+		     ON p.ProductID = tc.FK_ProductID INNER JOIN
+		     [Ordering].[ProductImages] pri on pri.FK_ProductID = p.ProductID
+		where FK_UserID = @FK_UserID 
+		group by Title, tc.Quantity, tc.FK_ProductID
+	</sql>
+	<sql description="sql query to bring back multiple results">
+		select ReviewStreamTypeId 
+		from Routing.ReviewStreamReviewerOrder 
+		group by ReviewStreamTypeId
+		having sum(case when ReviewerTitleTypeId = 1 and ReviewStreamReviewerOrderNumber = 1 then 1 else 0 end) > 0 and
+	       sum(case when ReviewerTitleTypeId = 27 and ReviewStreamReviewerOrderNumber = 2 then 1 else 0 end) > 0;
+	</sql>
+	<sql description="Missing Right Paranthesis">
+		Select C.CUST_NAME,
+       		substring_index(group_concat(P.PROD_DESCRIP  order by OT.ORDITEM_QTY desc), ',', 1) as PROD_DESCRIP
+		from Customer C JOIN 
+		     Ord O
+		     on C.CUST_ID = O.CUST_ID JOIN
+		     OrderItem OT
+		     on O.ORD_ID = OT.ORD_ID JOIN
+		     Product P
+		     ON OT.PROD_ID = P.PROD_ID
+		GROUP BY C.CUST_NAME;
+	</sql>
+	<sql description="display tables even if one is empty">
+		SELECT *
+		FROM blog left outer JOIN
+		     user
+		     On blog.user_id = user.id left outer join
+		     photos
+		     on blog.id = photos.blog_id
+	</sql>
+	<sql>
+		select merchant AS Supplier, name AS sku, quantity AS Qty, 
+		       totalprice AS Price
+		from (select p.*,
+		             row_number() over (partition by name
+		                                order by totalprice
+		                               ) as seqnum
+		      from products p
+		      where quantity > 0
+		     ) p
+		where seqnum = 1;
+	</sql>
+	<sql description="How to write a SQL-Query for the following table?">
+		select t.name
+		from table t
+		where t2.property in ('NewsLetter', 'Register')
+		group by t.name
+		having count(distinct property) = 2;
+		--------------
+		select t.*
+		from table t
+		where exists (select 1
+		              from table t2
+		              where t2.name = t.name and t2.property = 'NewsLetter'
+		             ) and
+		      exists (select 1
+		              from table t2
+		              where t2.name = t.name and t2.property = 'Register'
+		             );
+	</sql>
+	<sql description="SQL Select query to group into 'Other' section">
+		SELECT (case when total > 10 then country else 'other' end) as country,
+		       sum(total) as total
+		FROM (SELECT country, COUNT(country) AS total
+		      FROM Employees
+		      GROUP BY country
+		     ) eg
+		GROUP BY (case when total > 10 then country else 'other' end)
+		ORDER BY total ASC;
+	</sql>
+	<sql description="Distinct inside a CASE WHEN SQL">
+		SELECT sum(CASE WHEN PriceType_ID=0 THEN 1 ELSE 0 END) as NormalCount,
+		       sum(CASE WHEN PriceType_ID<>0 THEN 1 ELSE 0 END) as DiscountCount,
+		       sum(CASE WHEN PriceType_ID=0 THEN Amount END) as TotalAmountNormal,
+		       sum(CASE WHEN PriceType_ID<>0 THEN Amount ELSE 0 END) as TotalAmountDiscounted,
+		       Trip_No
+		FROM "Tbl_Ticket"
+		WHERE strftime('%Y-%m-%d', datetime('now'), 'localtime') = strftime('%Y-%m-%d', Ticket_Date)
+		      AND Vehicle_ID=1
+		      AND Driver_ID=1
+		      AND Route_ID=93
+		      AND Ticket_Date BETWEEN strftime('%Y-%m-%d %H:%M:%S', "2013-12-04 00:21:07") AND strftime('%Y-%m-%d %H:%M:%S', "2013-12-04 00:50:50")
+		group by trip_no
+		----------------------
+		SELECT
+		    SUM(NormalCount) NormalCount,
+		    SUM(DiscountCount) DiscountCount,
+		    SUM(TotalAmountNormal) TotalAmountNormal,
+		    SUM(TotalAmountDiscounted) TotalAmountDiscounted,
+		    COUNT(DISTINCT Trip_No) TotalTrip
+		  FROM( 
+		    SELECT
+		      CASE WHEN PriceType_ID=0 THEN 1 ELSE 0 END NormalCount,
+		      CASE WHEN PriceType_ID<>0 THEN 1 ELSE 0 END DiscountCount,
+		      CASE WHEN PriceType_ID=0 THEN Amount END TotalAmountNormal,
+		      CASE WHEN PriceType_ID<>0 THEN Amount ELSE 0 END TotalAmountDiscounted,
+		      trip_no
+		    FROM "Tbl_Ticket"
+		    WHERE strftime('%Y-%m-%d', datetime('now'), 'localtime') = strftime('%Y-%m-%d', Ticket_Date)
+		      AND Vehicle_ID=1
+		      AND Driver_ID=1
+		      AND Route_ID=93
+		      AND Ticket_Date BETWEEN strftime('%Y-%m-%d %H:%M:%S', "2013-12-04 00:21:07") AND strftime('%Y-%m-%d %H:%M:%S', "2013-12-04 00:50:50")
+		  ) t
+	</sql>
+	<sql description="SQL Query on 3 tables">
+		SELECT G.id, G.name
+		FROM Galaxy G LEFT OUTER JOIN
+		     SolarSystem SS
+		     ON G.id = SS.id_galaxy LEFT OUTER JOIN
+		     Planet P
+		     ON SS.id = P.id_solar_system
+		group by g_id, g.name
+		having max(P.id) IS NULL
+	</sql>
+	<sql description="Grouping by Id but grabbing first date related to the Id">
+		select [MembershipId], min([DateCreated]) as FirstDateCreated
+		INTO #StripeTemp
+		FROM fundingsources
+		GROUP BY MembershipID;
+		===============================
+		select [MembershipId], min([DateCreated]) as FirstDateCreated
+		FROM (select MemberShipId, DateCreated
+		      from fundingsources
+		      union all
+		      select MemberShipId, DateInserted
+		      from fundingsourcecustomer
+		     ) t
+		GROUP BY MembershipID;
+	</sql>
+	<sql description="SQL query to find most prevalent associated value in table">
+		select column1, column2
+		from (select t.*,
+		             row_number() over (partition by column1 order by col2cnt desc) as seqnum
+		      from (select t.*, count(*) over (partition by column2) as col2cnt
+		            from t 
+		           ) t
+		     ) t
+		where seqnum = 1
+	</sql>
+	<sql description="SQL - between , AND">
+		with bar_no as (
+		      select 1 start_bar, 5 end_bar from dual
+		     ),
+		     codes as (
+		      select level + start_bar - 1 start_bar
+		      from bar_no
+		           connect by level <= end_bar - start_bar + 1
+		     ),
+		     counts as (
+		       select level as repcnt
+		       from dual connect by level <= 3
+		     )
+		select *
+		from codes cross join counts
+		order by 1, 2;
+	</sql>
+	<sql description="SQL Multiple where on same field">
+		SELECT FieldA
+		FROM table
+		GROUP BY FieldA
+		HAVING SUM(CASE WHEN FieldB = 12 THEN 1 ELSE 0 END) > 0 AND
+		       SUM(CASE WHEN FieldB = 14 THEN 1 ELSE 0 END) = 0;
+		SELECT FieldA
+		FROM table
+		GROUP BY FieldA
+		HAVING SUM(CASE WHEN FieldB = 12 THEN 1 ELSE 0 END) > 0 AND
+		       SUM(CASE WHEN FieldB = 13 THEN 1 ELSE 0 END) > 0 AND
+		       SUM(CASE WHEN FieldB = 14 THEN 1 ELSE 0 END) = 0;
+		SELECT FieldA
+		FROM table
+		GROUP BY FieldA
+		HAVING SUM(CASE WHEN FieldB IN (12, 13) THEN 1 ELSE 0 END) > 0 AND
+		       SUM(CASE WHEN FieldB = 14 THEN 1 ELSE 0 END) = 0;
+	</sql>
+	<sql description="Incorrect syntax near delete expecting select or '('">
+		CREATE PROCEDURE NSP166_DeleteDMSPermission  
+			@PermissionID uniqueidentifier  ,
+			@FunctionalDetailsId uniqueidentifier
+		AS  
+		BEGIN  
+		    if (SELECT count(PermissionID) AS counts
+		        FROM NSP166_RolePermissionTrans
+		        where PermissionID=@PermissionID) > 1
+		    begin
+		        delete from NSP166_RolePermissionTrans
+		            where FunctionalDetailsId=@FunctionalDetailsId
+		    end
+		end;
+	</sql>
+	<sql description="">
+		SELECT account_number, COUNT(*)-1 AS flag
+		FROM (
+		  SELECT account_number FROM A
+		    UNION ALL
+		  SELECT account_number FROM B
+		) AB
+		GROUP BY account_number;
+		select a.account_number,
+		       (case when b.account_number is null then 0 else 1 end) as flag
+		from A left outer join
+		     B
+		     on A.account_number = b.account_number;
+	</sql>
+	<sql description="Left outer join and group by issue">
+		select s.*, f.firma_adi,
+		       (select SUM(sd.fiyat)
+		        from fuar_sozlesme1_detay fd
+		        where sd.sozlesme_id = s.id
+		       ) as konak,
+		       (select SUM(ss.fiyat)
+		        from fuar_sozlesme1_sponsor ss
+		        where (ss.sozlesme_id = s.id)
+		       ) as sponsor
+		from fuar_sozlesme1 s inner join
+		     fuar_firma_2012 f
+		     on (s.cari = f.cari)
+		order by s.id DESC
+	</sql>
+	<sql description="Combine SQL Count Results">
+		select OSType, count(*) as TotalMachines
+		from (
+		    SELECT 'Linux' as OSType FROM Machines WHERE OperatingSystem LIKE '%Linux%'
+		    UNION ALL
+		    SELECT 'Windows' as OSType FROM Machines WHERE OperatingSystem LIKE '%Windows%'
+		) as subquery
+		GROUP BY OSType;
+		SELECT (case when OperatingSystem LIKE '%Windows%' then 'Windows'
+            		 when OperatingSystem LIKE '%Linux%' then 'Linux'
+		       end) as WhichOs, Count(*) AS TotalMachines
+		FROM Machines
+		Where (OperatingSystem LIKE '%Windows%') OR 
+		      (OperatingSystem LIKE '%Linux%')
+		GROUP BY (case when OperatingSystem LIKE '%Windows%' then 'Windows'
+		               when OperatingSystem LIKE '%Linux%' then 'Linux
+		          end);
+	</sql>
+</gather-sql-list>
