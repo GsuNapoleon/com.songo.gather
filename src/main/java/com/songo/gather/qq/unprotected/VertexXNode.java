@@ -5,6 +5,8 @@ package com.songo.gather.qq.unprotected;
 
 import java.util.List;
 
+import com.songo.gather.algorithm.graphtheory.Vertex;
+
 /**
  * <p>decription:</p>
  * <p>date:2014年5月19日 下午2:14:51</p>

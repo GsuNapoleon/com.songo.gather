@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.songo.gather.qq.unprotected;
+package com.songo.gather.algorithm.graphtheory;
 
 import java.util.List;
 
@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class Graph {
 
-	private final List<Vertex> vertexes;
-	private final List<Edge> edges;
+	private final List<Vertex> vertexes;	// 所有顶点集合
+	private final List<Edge> edges;			// 所有边集合
 
 	public Graph(List<Vertex> vertexes, List<Edge> edges) {
 		this.vertexes = vertexes;

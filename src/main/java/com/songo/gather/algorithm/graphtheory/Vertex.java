@@ -4,14 +4,14 @@
 package com.songo.gather.algorithm.graphtheory;
 
 /**
- * <p>decription:</p>
+ * <p>decription:顶点的封装对象</p>
  * <p>date:2014年5月16日 下午4:55:26</p>
  * 
  * @author gsu·napoleon
  */
 public class Vertex {
-	final private String id;
-	final private String name;
+	final private String id;	// 顶点标识
+	final private String name;	// 顶点名.例如：顶点A.
 
 	public Vertex(String id, String name) {
 		this.id = id;
@@ -36,24 +36,29 @@ public class Vertex {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		Vertex other = (Vertex) obj;
 		if (id == null) {
-			if (other.id != null)
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!id.equals(other.id)) {
 			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return name;
+		return "('" + id + "', '" + name + "')";
 	}
 
 }
