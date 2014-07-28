@@ -16,7 +16,7 @@ public class Edge {
 	private final int weight;			// 权重.可以以两点间的距离来理解,但是,又不是点之间的实际距离.
 
 	public Edge(String id, Vertex source, Vertex destination) {
-		this(id, source, destination, 0);
+		this(id, source, destination, 1);
 	}
 	
 	public Edge(String id, Vertex source, Vertex destination, int weight) {
