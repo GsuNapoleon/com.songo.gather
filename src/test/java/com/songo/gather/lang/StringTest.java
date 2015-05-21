@@ -24,14 +24,20 @@ public class StringTest {
 	@Before
 	public void setUp() throws Exception {
 	}
+	
+	protected enum Type {
+		PV, IP, UV, VISIT
+	}
 
 	/**
 	 * Test method for {@link java.lang.String#String()}.
 	 */
 	@Test
 	public void testString() {
-		fail("Not yet implemented");
+		System.out.println(Type.IP.equals("IP"));
 	}
+	
+	
 
 	/**
 	 * Test method for {@link java.lang.String#String(java.lang.String)}.

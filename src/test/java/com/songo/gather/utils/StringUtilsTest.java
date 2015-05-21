@@ -3,9 +3,9 @@
  */
 package com.songo.gather.utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +31,12 @@ public class StringUtilsTest {
 	 */
 	@Test
 	public void testStringUtils() {
-		fail("Not yet implemented");
+		int i = 10;
+		int j = i + (i << 1) + 1;
+		System.out.println(j);
+		System.out.println(i >> 2);
+		System.out.println(i << 2);
+		
 	}
 
 	/**

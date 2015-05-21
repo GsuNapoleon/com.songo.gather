@@ -15,7 +15,7 @@ import org.junit.Test;
  */
 public class JunitCrawlerHottestDownload {
 	
-	private static final String CSDN_DOWNLOAD_URL = "http://download.csdn.net";
+	private static final String CSDN_DOWNLOAD_URL = "http://my.csdn.net/lisw2011";
 	private CrawlerHottestDownload chd;
 
 	/**
@@ -38,13 +38,13 @@ public class JunitCrawlerHottestDownload {
 //		System.out.println(pageContent);
 		Set<String> sets = chd.getDownloadHref(pageContent);
 		String newPageContent = chd.getPageContent(sets.iterator().next());
-//		System.out.println(newPageContent);
+		System.out.println(newPageContent);
 
-		String concreteUrl = chd.getConcreteDownloadHref(newPageContent);
-		System.out.println(concreteUrl);
-		String downloadPageContent = chd.getPageContent(concreteUrl);
-		System.out.println(downloadPageContent);
-		String concreteDownloadURL = chd.getConcreteDownloadURL(downloadPageContent);
+//		String concreteUrl = chd.getConcreteDownloadHref(newPageContent);
+//		System.out.println(concreteUrl);
+//		String downloadPageContent = chd.getPageContent(concreteUrl);
+//		System.out.println(downloadPageContent);
+//		String concreteDownloadURL = chd.getConcreteDownloadURL(downloadPageContent);
 		
 //		chd.runDownload(downloadPageContent);
 	}
