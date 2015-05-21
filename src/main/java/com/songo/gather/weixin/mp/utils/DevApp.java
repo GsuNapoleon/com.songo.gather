@@ -12,8 +12,8 @@ package com.songo.gather.weixin.mp.utils;
  */
 public enum DevApp {
 	
-	APP_ID("wxab85926f3702d2e9", "应用ID"),
-	APP_SECRET("d1b53225aea944b888459fcd613803ff", "应用密钥"),
+	APP_ID("", "应用ID"),
+	APP_SECRET("", "应用密钥"),
 	APP_REDIRECT_URI("https://www.google.com/", "应用跳转地址"),
 	APP_CUSTOM_TOKEN("kR9rwCZVMtUEFSOHrUQUvCxEnPUK0mFZ", "自定义token,用来验证开发者身份.一经确定,请勿修改"),
 	APP_CUSTOM_ENCODING_AES_KEY(SecurityUtils.sha256Hash(), "自定义的消息加密密钥"),
