@@ -45,4 +45,32 @@ public class MyStringUtilsTest {
 		System.out.println(lists);
 	}
 
+	@Test
+	public void testGetCapitalByNumber() {
+		
+		int i_10 = 10;
+		int i_11 = 12;
+		int i_21 = 23;
+		int i_23 = 34;
+		System.err.println(i_10 / 10 + "; " + i_10 % 10);
+		System.err.println(i_11 / 10 + "; " + i_11 % 10);
+		System.err.println(i_21 / 10 + "; " + i_21 % 20);
+		System.err.println(i_23 / 10 + "; " + i_23 % 30);
+		
+		String capital_9 = MyStringUtils.getCapitalByNumber(9);
+		System.err.println("9 = " + capital_9);
+		String capital_10 = MyStringUtils.getCapitalByNumber(10);
+		System.err.println("10 = " + capital_10);
+		String capital_19 = MyStringUtils.getCapitalByNumber(19);
+		System.err.println("19 = " + capital_19);
+		String capital_29 = MyStringUtils.getCapitalByNumber(29);
+		System.err.println("29 = " + capital_29);
+		String capital_39 = MyStringUtils.getCapitalByNumber(39);
+		System.err.println("39 = " + capital_39);
+		String capital_45 = MyStringUtils.getCapitalByNumber(45);
+		System.err.println("45 = " + capital_45);
+		String capital_99 = MyStringUtils.getCapitalByNumber(99);
+		System.err.println("99 = " + capital_99);
+	}
+	
 }
