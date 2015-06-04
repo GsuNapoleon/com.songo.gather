@@ -115,7 +115,7 @@ public class MyStringUtils {
 			int seq = number / 10;
 			int suffix = number % (seq * 10);
 			seq = number < 20 ? seq - 1 : seq;
-			result = capitalsSingle[seq] + "" + capitalsSingle[10] + ""
+			result = capitalsSingle[seq] + capitalsSingle[10] 
 					+ capitalsSingle[suffix];
 		}
 
