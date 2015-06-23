@@ -17,6 +17,9 @@
 		<spring-asm-version>3.1.4.RELEASE</spring-asm-version>
 		<spring-webflow>2.4.0.RELEASE</spring-webflow>
 		<spring-rabbit>1.4.5.RELEASE</spring-rabbit>
+		<spring-mobile-device-version>1.1.3.RELEASE</spring-mobile-device-version>
+		<spring-data-redis-version>1.5.0.RELEASE</spring-data-redis-version>
+		<spring-data-hadoop-version>2.1.2.RELEASE</spring-data-hadoop-version>
 		<aspectjweaver-version>1.7.4</aspectjweaver-version>
 		<junit-version>4.11</junit-version>
 		<commons-beanutils-version>1.9.2</commons-beanutils-version>
@@ -29,7 +32,8 @@
 		<slf4j-api-version>1.7.12</slf4j-api-version>
 		<disruptor-version>3.3.2</disruptor-version>
 		<netty-version>4.0.21.Final</netty-version>
-		<protobuf-version>2.5.0</protobuf-version>
+		<protobuf-version>2.6.1</protobuf-version>
+		<zookeeper-version>3.4.6</zookeeper-version>
 	</properties>
 
 	<dependencies>
@@ -241,6 +245,16 @@
 	        <artifactId>spring-rabbit</artifactId>
 	        <version>${spring-rabbit}</version>
 	    </dependency>
+	    <dependency>
+	        <groupId>org.springframework.mobile</groupId>
+	        <artifactId>spring-mobile-device</artifactId>
+	        <version>${spring-mobile-device-version}</version>
+	    </dependency>
+	    <!-- <dependency>
+	        <groupId>org.springframework.data</groupId>
+	        <artifactId>spring-data-hadoop</artifactId>
+	        <version>${spring-data-hadoop-version}</version>
+	    </dependency> -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -293,6 +307,16 @@
 			<artifactId>fastjson</artifactId>
 			<version>1.2.5</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>${zookeeper-version}</version>
+		</dependency>
+		<dependency>
+	        <groupId>org.springframework.data</groupId>
+	        <artifactId>spring-data-redis</artifactId>
+	        <version>${spring-data-redis-version}</version>
+	    </dependency>
 		<!-- 
 		<dependency>
 			<groupId>javax.xml</groupId>
