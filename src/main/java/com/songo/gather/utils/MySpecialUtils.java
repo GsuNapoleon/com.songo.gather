@@ -5,11 +5,6 @@ package com.songo.gather.utils;
 
 /**
  * 
-	private static final char NESTED        = '.';
-    private static final char MAPPED_START  = '(';
-    private static final char MAPPED_END    = ')';
-    private static final char INDEXED_START = '[';
-    private static final char INDEXED_END   = ']';
  * <p>decription:</p>
  * <p>date:2015年6月3日 下午2:59:39</p>
  * @author gsu·napoleon
@@ -52,7 +47,5 @@ public enum MySpecialUtils {
 	public Object getValue() {
 		return this.value;
 	}
-	
-	
 	
 }

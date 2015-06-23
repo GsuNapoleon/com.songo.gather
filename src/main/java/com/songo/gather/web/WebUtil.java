@@ -12,11 +12,15 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.DriverManager;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.sql.DataSource;
+
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
@@ -164,8 +168,17 @@ public class WebUtil {
 		} catch (Exception ex) {
 			return "";
 		} finally {
-			if (postMethod != null) {
-				postMethod.releaseConnection();
+			releaseConnection(postMethod);
+		}
+	}
+	
+	private static void releaseConnection (HttpMethodBase method) {
+		try {
+			logger.warn("Please wait!Release Connection coming!");
+		} finally {
+			if (method != null) {
+				method.releaseConnection();
+				method = null;
 			}
 		}
 	}

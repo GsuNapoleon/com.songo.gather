@@ -27,18 +27,18 @@ public class Demo {
 	}
 	
 	/**
-	 * <p>decription:</p>
+	 * <p>decription:5 + (3 + 4) * (2 + 3) = ?</p>
 	 * <p>date:2015年6月11日 上午11:42:42</p>
 	 * @author gsu·napoleon
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String expression = "w x y + -";
+		String expression = "w x y * +";
 		Expression evaluator = new Evaluator(expression);
 		Map<String, Expression> context = new HashMap<String, Expression>();
 		context.put("w", new Number(5));
-		context.put("x", new Number(15));
-		context.put("y", new Number(25));
+		context.put("x", new Number(3 + 4));
+		context.put("y", new Number(2 + 3));
 		int result = evaluator.interpreter(context);
 		System.err.println("result = " + result);
 		

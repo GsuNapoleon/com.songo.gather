@@ -10,8 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSONObject;
+import com.songo.gather.utils.MyStringUtils;
 import com.songo.gather.weixin.HttpApi;
-import com.songo.gather.weixin.mp.utils.CommonsUtils;
 import com.songo.gather.weixin.qy.utils.DevApp;
 
 /**
@@ -35,7 +35,7 @@ public final class HttpRequest {
 		String requestURL = messageFormat(DevApp.API_GET_ACCESS_TOKEN, 
 				DevApp.APP_CORP_ID.getValue(),
 				DevApp.APP_CORP_SECRET.getValue());
-		String result = StringUtils.isNotEmpty(requestURL) ? HttpApi.get(false, 
+		String result = StringUtils.isNotEmpty(requestURL) ? HttpApi.get( 
 				requestURL, DevApp.UTF_8.getValue()) : msgRequestURLIsNull();
 		JSONObject json = stringToJSONObject(result);
 		
@@ -53,7 +53,7 @@ public final class HttpRequest {
 		String requestURL = messageFormat(DevApp.API_GET_USE_AUTHSUCC, accessToken, userid);
 		
 		String result = StringUtils.isNotEmpty(requestURL) 
-				? HttpApi.get(false, requestURL, DevApp.UTF_8.getValue())
+				? HttpApi.get(requestURL, DevApp.UTF_8.getValue())
 				: msgRequestURLIsNull();
 		JSONObject json = stringToJSONObject(result);
 		logger.info("二次验证用户信息时,返回的消息：{}", json.toJSONString());
@@ -93,7 +93,7 @@ public final class HttpRequest {
 		String requestURL = messageFormat(DevApp.API_GET_USER_INFO, accessToken, userid);
 		
 		String result = StringUtils.isNotEmpty(requestURL) 
-				? HttpApi.get(false, requestURL, DevApp.UTF_8.getValue())
+				? HttpApi.get(requestURL, DevApp.UTF_8.getValue())
 				: msgRequestURLIsNull();
 		
 		return stringToJSONObject(result);
@@ -134,7 +134,7 @@ public final class HttpRequest {
 				accessToken, departmentId, localFetchChild, localStatus);
 		
 		String result = StringUtils.isNotEmpty(requestURL) 
-				? HttpApi.get(false, requestURL, DevApp.UTF_8.getValue())
+				? HttpApi.get(requestURL, DevApp.UTF_8.getValue())
 				: msgRequestURLIsNull();
 		
 		return stringToJSONObject(result);
@@ -148,7 +148,7 @@ public final class HttpRequest {
 		
 		String requestURL = messageFormat(DevApp.API_GET_AGENT, accessToken, agentId);
 		String result = StringUtils.isNotEmpty(requestURL) 
-				? HttpApi.get(false, requestURL, DevApp.UTF_8.getValue())
+				? HttpApi.get(requestURL, DevApp.UTF_8.getValue())
 				: msgRequestURLIsNull();
 		
 		return JSONObject.parseObject(result);		
@@ -175,7 +175,7 @@ public final class HttpRequest {
 		}
 		
 		if (StringUtils.isEmpty(state)) {
-			state = CommonsUtils.getUuid(16);
+			state = MyStringUtils.getUuid(16);
 		}
 		
 		return messageFormat(DevApp.API_GET_AUTHORIZE_CODE, appId, redirectUri, state);
@@ -202,7 +202,7 @@ public final class HttpRequest {
 		
 		String requestURL = messageFormat(DevApp.API_GET_USER_INFO_BY_CODE, accessToken, code, agentId);
 		String result = StringUtils.isNotEmpty(requestURL)
-				? HttpApi.get(false, requestURL, DevApp.UTF_8.getValue())
+				? HttpApi.get(requestURL, DevApp.UTF_8.getValue())
 				: msgRequestURLIsNull();
 		
 		return JSONObject.parseObject(result);

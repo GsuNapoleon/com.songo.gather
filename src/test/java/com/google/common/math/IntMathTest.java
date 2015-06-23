@@ -3,8 +3,6 @@
  */
 package com.google.common.math;
 
-import static org.junit.Assert.*;
-
 import java.math.RoundingMode;
 
 import org.junit.Before;

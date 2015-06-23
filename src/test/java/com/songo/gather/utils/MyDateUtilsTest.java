@@ -6,6 +6,7 @@ package com.songo.gather.utils;
 import java.text.ParseException;
 import java.util.Date;
 
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,8 +31,8 @@ public class MyDateUtilsTest {
 	public void test() throws ParseException {
 		int days = MyDateUtils.getMonthDays(new Date());
 		int days1 = MyDateUtils.getMonthDays("2012-02-01 00:00:00");
-		int dayOfInt = MyDateUtils.dateFormatInteger(null);
-		long dayOfLong = MyDateUtils.dateFormatLong(null);
+		int dayOfInt = MyDateUtils.parseInteger(null);
+		long dayOfLong = MyDateUtils.parseLong(null);
 		System.err.println("days = " + days);
 		System.err.println("days1 = " + days1);
 		System.err.println("dayOfInt = " + dayOfInt);
@@ -49,6 +50,11 @@ public class MyDateUtilsTest {
 		System.err.println("prev ym : " + pym1);
 		int pym2 = MyDateUtils.getPrevYm(ym, 36);
 		System.err.println("prev ym : " + pym2);
+	}
+	
+	@Test
+	public void testFormatPattern() {
+		System.err.println("****************** {" + MyDateFormatter.YYYY.formatter(new Date()) + "}");
 	}
 
 }

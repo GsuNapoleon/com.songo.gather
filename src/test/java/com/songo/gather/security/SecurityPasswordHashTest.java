@@ -9,6 +9,8 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.songo.gather.utils.MyStringUtils;
+
 /**
  * <p>decription:</p>
  * <p>date:2014年6月23日 下午4:21:18</p>
@@ -30,6 +32,11 @@ public class SecurityPasswordHashTest {
 	public void test() {
 		String hash = SecurityPasswordHash.base64Hash("123456789holdfishplam##", "Key!@#$%^&*(){}001");
 		System.out.println(hash.length());
+		String x = String.valueOf(System.currentTimeMillis())
+                + "." + MyStringUtils.getUuid(4)
+                + "." + SecurityPasswordHash.base64Hash(MyStringUtils.getUuid(32), MyStringUtils.getUuid(8));
+		System.out.println(x);
+		
 	}
 
 }

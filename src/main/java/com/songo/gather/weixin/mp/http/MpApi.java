@@ -11,8 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.songo.gather.utils.MyStringUtils;
 import com.songo.gather.weixin.HttpApi;
-import com.songo.gather.weixin.mp.utils.CommonsUtils;
 import com.songo.gather.weixin.mp.utils.DevApp;
 import com.songo.gather.weixin.mp.utils.GlobalReturnCode;
 import com.songo.gather.weixin.mp.utils.Scope;
@@ -56,7 +56,7 @@ public class MpApi {
 		String url = MessageFormat.format(DevApp.API_ACCESS_TOKEN.getValue(), 
 				grantType, appId, secret);
 		
-		String accessToken = HttpApi.get(false, url, Mp.LANG_CODE_GBK.getValue());
+		String accessToken = HttpApi.get(url, Mp.LANG_CODE_GBK.getValue());
 		
 		return JSONObject.parseObject(accessToken);
 	}
@@ -74,7 +74,7 @@ public class MpApi {
 		String reqURL = MessageFormat.format(DevApp.API_GET_USERINFO_BY_OPENID.getValue(), 
 				URLEncoder.encode(accessToken, Mp.LANG_CODE_GBK.getValue()),
 				openID);
-		return JSONObject.parseObject(HttpApi.get(false, reqURL, Mp.LANG_CODE_GBK.getValue()));
+		return JSONObject.parseObject(HttpApi.get(reqURL, Mp.LANG_CODE_GBK.getValue()));
 	}
 	
 	public JSONObject getUserList(String accessToken) throws UnsupportedEncodingException {
@@ -87,7 +87,7 @@ public class MpApi {
 				DevApp.API_GET_USER_LIST.getValue(), 
 				accessToken, Mp.LANG_CODE_GBK.getValue());
 		System.out.println(requestURL);
-		return JSONObject.parseObject(HttpApi.get(false, requestURL, Mp.LANG_CODE_GBK.getValue()));
+		return JSONObject.parseObject(HttpApi.get(requestURL, Mp.LANG_CODE_GBK.getValue()));
 	}
 	
 	/**
@@ -120,7 +120,7 @@ public class MpApi {
 			scope = Scope.SNSAPI_BASE.getScope();
 		}
 		if (StringUtils.isEmpty(state)) {
-			state = CommonsUtils.getUuid(4);
+			state = MyStringUtils.getUuid(4);
 		}
 		if (StringUtils.isEmpty(flag)) {
 			flag = Mp.DEFAULT_FALG.getValue();
@@ -128,7 +128,7 @@ public class MpApi {
 		
 		String url = MessageFormat.format(DevApp.API_AUTHORIZE_AND_GET_CODE.getValue(), 
 				appId, URLEncoder.encode(redirectUri, Mp.LANG_CODE_EN.getValue()), responseType, scope, state, flag);
-		return HttpApi.get(false, url, Mp.LANG_CODE_GBK.getValue());
+		return HttpApi.get(url, Mp.LANG_CODE_GBK.getValue());
 	}
 
 	/**
@@ -205,7 +205,7 @@ public class MpApi {
 		String requestURL = MessageFormat.format(DevApp.API_POST_CREATE_MENU.getValue(), 
 				URLEncoder.encode(token, Mp.LANG_CODE_GBK.getValue()));
 		
-		return HttpApi.httpClientPostService(requestURL, menu.toJSONString(), Mp.LANG_CODE_GBK.getValue());
+		return HttpApi.post(requestURL, null, menu.toJSONString(), Mp.LANG_CODE_GBK.getValue());
 	}
 	
 	private enum Mp {

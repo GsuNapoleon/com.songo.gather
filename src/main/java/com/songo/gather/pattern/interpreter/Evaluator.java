@@ -26,6 +26,11 @@ public class Evaluator implements Expression {
 				Expression right = stack.pop();
 				Expression exp = new Minus(left, right);
 				stack.push(exp);
+			} else if ("*".equals(token)) {
+				Expression left = stack.pop();
+				Expression right = stack.pop();
+				Expression exp = new Multi(left, right);
+				stack.push(exp);
 			} else {
 				stack.push(new Variable(token));
 			}

@@ -10,9 +10,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.SecureRandom;
@@ -28,7 +25,9 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethodBase;
 import org.apache.commons.httpclient.methods.ByteArrayRequestEntity;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.lang3.StringUtils;
@@ -48,58 +47,6 @@ import org.slf4j.LoggerFactory;
 public class HttpApi {
 
 	private static final Logger logger = LoggerFactory.getLogger(HttpApi.class);
-	
-	/**
-	 * 请求网络地址(GET方法)并获取返回内容
-	 * @param requestURL	请求地址
-	 * @param charset		内容编码
-	 * @return 服务器返回内容
-	 */
-	public static String get(boolean isProxy, String requestURL, String charset) {
-		HttpURLConnection connection = null;
-		try {
-			URL url = new URL(requestURL);
-			if (isProxy) {
-				Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("", 9000));
-				connection = (HttpURLConnection) url.openConnection(proxy);
-			} else {
-				connection = (HttpURLConnection) url.openConnection();
-			}
-			System.setProperty("sun.net.client.defaultConnectTimeout", "30000");
-			System.setProperty("sun.net.client.defaultReadTimeout", "30000");
-			connection.setConnectTimeout(10000);
-			connection.setReadTimeout(10000);
-			connection.setRequestProperty("User-Agent", "MSIE 7.0");
-			return getResponseContent(connection.getInputStream(), charset);
-		} catch (Exception e) {
-			logger.warn("以GET方式获取信息时,发生异常：{}", e);
-			return "";
-		} finally {
-			if (connection != null) {
-				connection.disconnect();
-			}
-		}
-	}
-	
-	public static String httpClientPostService(String requestURL, String postMsg, String charset) {
-		PostMethod postMethod = null;
-		try {
-			HttpClient client = new HttpClient();
-			postMethod = new PostMethod(requestURL);
-			RequestEntity requestEntity = new ByteArrayRequestEntity(postMsg.getBytes(charset));
-			requestEntity.writeRequest(new ByteArrayOutputStream());
-			postMethod.setRequestEntity(requestEntity);
-			client.executeMethod(postMethod);
-			
-			return getResponseContent(postMethod.getResponseBodyAsStream(),charset);
-		} catch (Exception ex) {
-			return "";
-		} finally {
-			if (postMethod != null) {
-				postMethod.releaseConnection();
-			}
-		}
-	}
 	
 	public static String httpsGet(String requestURL, String charset) {
         HttpsURLConnection connection = null;
@@ -154,7 +101,7 @@ public class HttpApi {
 	 * @param charset 内容编码
 	 * @return 服务器返回内容
 	 */
-	public static String post(String requestURL, Map<String, String> params, 
+	public static String jpost(String requestURL, Map<String, String> params, 
 			String postMsg, String charset) {
 		try {
 			URL url = new URL(requestURL);
@@ -179,6 +126,69 @@ public class HttpApi {
 			return "";
 		}
 	}
+	
+	/**
+	 * 请求网络地址(POST方法)并获取返回内容
+	 * 
+	 * @param requestURL
+	 *            请求地址
+	 * @param params
+	 *            所请求的参数-值对
+	 * @param postMsg
+	 *            要发送给服务器的消息
+	 * @param charset
+	 *            内容编码
+	 * @return 服务器返回内容
+	 */
+	public static String post(String requestURL,
+			Map<String, String> params, String postMsg, String charset) {
+		PostMethod method = null;
+		try {
+			HttpClient client = new HttpClient();
+			method = new PostMethod(requestURL);
+			RequestEntity requestEntity = new ByteArrayRequestEntity(postMsg.getBytes(charset));
+			requestEntity.writeRequest(new ByteArrayOutputStream());
+			method.setRequestEntity(requestEntity);
+			client.executeMethod(method);
+			
+			return getResponseContent(method.getResponseBodyAsStream(),
+					charset);
+		} catch (Exception ex) {
+			return "";
+		} finally {
+			releaseConnection(method);
+		}
+	}
+	
+	public static String get(String uri, String code) {
+		GetMethod method = null;
+		
+		try {
+			method = new GetMethod(uri);
+			HttpClient client = new HttpClient();
+			client.executeMethod(method);
+			
+			return getResponseContent(method.getResponseBodyAsStream(), code);
+		} catch(Exception ex) {
+			
+		} finally {
+			releaseConnection(method);
+		}
+		
+		return "";
+	}
+	
+	private static void releaseConnection (HttpMethodBase method) {
+		try {
+			logger.warn("Please wait!Release Connection coming!");
+		} finally {
+			if (method != null) {
+				method.releaseConnection();
+				method = null;
+			}
+		}
+	}
+
 
 	private static String getResponseContent(InputStream is, String charset) {
 

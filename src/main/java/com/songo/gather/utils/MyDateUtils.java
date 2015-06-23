@@ -8,7 +8,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.FastDateFormat;
 
 /**
  * <p>decription:</p>
@@ -17,7 +16,6 @@ import org.apache.commons.lang3.time.FastDateFormat;
  */
 public final class MyDateUtils {
 
-	private static final String DEFAULT_FORMAT_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
 	private static final String[] hours = {
         "00:00 - 00:59", "01:00 - 01:59", "02:00 - 02:59", "03:00 - 03:59",
         "04:00 - 04:59", "05:00 - 05:59", "06:00 - 06:59", "07:00 - 07:59",
@@ -26,53 +24,18 @@ public final class MyDateUtils {
         "16:00 - 16:59", "17:00 - 17:59", "18:00 - 18:59", "19:00 - 19:59",
         "20:00 - 20:59", "21:00 - 21:59", "22:00 - 22:59", "23:00 - 23:59"};
 	
-	public static Date stringFormatDate(String date, String pattern) throws ParseException {
-		
-		if (StringUtils.isEmpty(pattern)) {
-			throw new UnsupportedOperationException("Not found format date pattern!");
-		}
-		if (StringUtils.isEmpty(date)) {
-			throw new UnsupportedOperationException("Not found date string value!");
-		}
-		
-		FastDateFormat fdf = FastDateFormat.getInstance(pattern);
-		
-		return fdf.parse(date);
-	}
-	
-	public static Date stringFormatDate(String date) throws ParseException {
-		return stringFormatDate(date, DEFAULT_FORMAT_DATE_PATTERN);
-	}
-	
-	public static String dateFormatString(Date date, String pattern) {
-		if (StringUtils.isEmpty(pattern)) {
-			throw new UnsupportedOperationException("Not found format date pattern!");
-		}
+	public static int parseInteger(Date date) {
 		if (date == null) {
 			date = new Date();
 		}
-		
-		FastDateFormat fdf = FastDateFormat.getInstance(pattern);
-		
-		return fdf.format(date);
+		return Integer.valueOf(MyDateFormatter.YYYYMMDD.formatter(date));
 	}
 	
-	public static String dateFormatString(Date date) {
-		return dateFormatString(date, DEFAULT_FORMAT_DATE_PATTERN);
-	}
-	
-	public static int dateFormatInteger(Date date) {
+	public static long parseLong(Date date) {
 		if (date == null) {
 			date = new Date();
 		}
-		return Integer.valueOf(dateFormatString(date, "yyyyMMdd"));
-	}
-	
-	public static long dateFormatLong(Date date) {
-		if (date == null) {
-			date = new Date();
-		}
-		return Long.valueOf(dateFormatString(date, "yyyyMMddHHmmss"));
+		return Long.valueOf(MyDateFormatter.YYYYMMDDHHMMSS.formatter(date));
 	}
 	
 	public static int getMonthDays(Date date) {
@@ -88,7 +51,7 @@ public final class MyDateUtils {
 	
 	public static int getMonthDays(String date) throws ParseException {
 		
-		Date localDate = StringUtils.isNotEmpty(date) ? stringFormatDate(date) : new Date();
+		Date localDate = StringUtils.isNotEmpty(date) ? MyDateFormatter.YYYY_MM_DD.parser(date) : new Date();
 		
 		Calendar c = Calendar.getInstance();
 		c.setTime(localDate);

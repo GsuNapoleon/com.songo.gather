@@ -33,15 +33,14 @@ public final class MyFileUtils {
 	}
 
 	private void initTimeTable() {
-		String today = MyDateUtils.dateFormatString(new Date(), "yyyyMMdd");
+		String today = MyDateFormatter.YYYYMMDD.formatter(new Date());
 
 		// set first item of today
 		timeTable[0] = new FileItem();
 		try {
-			timeTable[0].startTime = MyDateUtils.stringFormatDate(today
-					+ "000001000", "yyyyMMddHHmmssSSS");
-			timeTable[0].endTime = MyDateUtils.stringFormatDate(today
-					+ "001500999", "yyyyMMddHHmmssSSS");
+			
+			timeTable[0].startTime = MyDateFormatter.YYYYMMDDHHMMSSSSS.parser(today + "000001000");
+			timeTable[0].endTime = MyDateFormatter.YYYYMMDDHHMMSSSSS.parser(today + "001500999");
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -196,7 +195,7 @@ public final class MyFileUtils {
 		 */
 		public String getFileName() {
 			StringBuffer buf = new StringBuffer(dir);
-			buf.append(MyDateUtils.dateFormatString(startTime, "yyyyMMddHHmm"));
+			buf.append(MyDateFormatter.YYYYMMDDHHMM.formatter(startTime));
 			return buf.toString();
 		}
 	}
