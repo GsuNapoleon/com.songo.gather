@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.base.Splitter;
+import com.songo.gather.io.test.MyFileOutInputStream;
 
 /**
  * <p>decription:</p>
@@ -36,7 +37,7 @@ public class MyFileOutInputStreamTest {
 	}
 
 	/**
-	 * Test method for {@link com.songo.gather.io.MyFileOutInputStream#output(java.lang.String)}.
+	 * Test method for {@link com.songo.gather.io.test.MyFileOutInputStream#output(java.lang.String)}.
 	 */
 	@Test
 	public void testOutput() {

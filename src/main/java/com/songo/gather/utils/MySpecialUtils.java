@@ -13,6 +13,8 @@ public enum MySpecialUtils {
 	
 	NESTED("点号", "."), MAPPED_START("右括号", "("), MAPPED_END("左括号", ")"),
 	INDEXED_START("", "["), INDEXED_END("", "]"), 
+	AMPERSAND("", "&"), APOSTROPHE("", "'"), COLON("", ":"),
+	COMMA("", ","), DASH("", "_"),
 	MILLIS_PER_SECOND("", 1000L),
 	MILLIS_PER_MINUTE("", 60 * 1000L),
 	MILLIS_PER_HOUR("", 60 * 60 * 1000L),
