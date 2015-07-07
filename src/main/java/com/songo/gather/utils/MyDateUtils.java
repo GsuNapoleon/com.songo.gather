@@ -91,4 +91,24 @@ public final class MyDateUtils {
         return (y - k) * 100 + (mo > 0 ? mo : (12 + mo));
     }
     
+    public static Date getFirstDayOfMonth(Date date, int amount) {
+    	Calendar calendar = Calendar.getInstance();
+    	if (date != null) {
+    		calendar.setTime(date);
+    	}
+    	calendar.add(Calendar.MONTH, amount);
+    	calendar.set(Calendar.DAY_OF_MONTH, 1);
+    	return calendar.getTime();
+    }
+    
+    public static Date getLastDayOfMonth(Date date, int amount) {
+    	Calendar calendar = Calendar.getInstance();
+    	if (date != null) {
+    		calendar.setTime(date);
+    	}
+    	calendar.add(Calendar.MONTH, amount);
+    	calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+    	return calendar.getTime();
+    }
+    
 }

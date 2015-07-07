@@ -72,5 +72,18 @@ public class MyStringUtilsTest {
 		String capital_99 = MyStringUtils.getCapitalByNumber(99);
 		System.err.println("99 = " + capital_99);
 	}
-	
+
+	@Test
+	public void testStringSplitByRegular() {
+		String s = "{A}{b}{C}{d}{E}{e}{F}";
+		String [] ss = s.split("[{}]");
+		for (String sv : ss) {
+			System.err.println(sv);
+		}
+		String s1 = "[A][b][C][d][E][e][F]";
+		String [] ss1 = s1.split("[\\[\\]]");
+		for (String sv : ss1) {
+			System.err.println(sv);
+		}
+	}
 }

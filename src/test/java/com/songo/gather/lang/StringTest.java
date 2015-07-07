@@ -5,6 +5,9 @@ package com.songo.gather.lang;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,7 +47,19 @@ public class StringTest {
 	 */
 	@Test
 	public void testStringString() {
-		fail("Not yet implemented");
+		List<Double> lists = new ArrayList<Double>();
+		lists.add(0.38452565);
+		lists.add(0.32452565);
+		lists.add(0.34452565);
+		lists.add(0.31452565);
+		List<Double> results = new ArrayList<Double>();
+		for (Double d : lists) {
+			results.add(Double.parseDouble(String.format("%.4f", d)));
+		}
+		System.err.println(results);
+		Long x = 100L;
+		Long y = 9L;
+		System.err.println(Double.parseDouble(String.format("%.1f", x.doubleValue() / y.doubleValue())));
 	}
 
 	/**
@@ -52,7 +67,15 @@ public class StringTest {
 	 */
 	@Test
 	public void testStringCharArray() {
-		fail("Not yet implemented");
+		System.err.println(String.format("%.2f%%", 0.0));
+		System.err.println(String.format("%." + 2 + "f" + (true ? "%%" : ""), 0.0));
+		System.err.println(String.format("%." + 2 + "f" + (false ? "%%" : ""), 0.0));
+//		System.err.println(String.format("%,.3f", 100000.00000));
+////		System.err.println(String.format("%#12.3f%#12d", 100000.00000, 123456));
+//		System.err.println(String.format("%+12.3f", 100000.00000));
+//		System.err.println(String.format("%-12.3f%-12d", 100000.00000, 123456));
+//		System.err.println(String.format("% .3f", 100000.99999));
+//		System.err.println(String.format("%s", 100000.99999));
 	}
 
 	/**

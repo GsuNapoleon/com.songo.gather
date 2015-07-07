@@ -4,7 +4,9 @@
 package com.songo.gather.utils;
 
 /**
- * 
+ * // %[argument_index$][flags][width][.precision][t]conversion
+    private static final String formatSpecifier
+        = "%(\\d+\\$)?([-#+ 0,(\\<]*)?(\\d+)?(\\.\\d+)?([tT])?([a-zA-Z%])"
  * <p>decription:</p>
  * <p>date:2015年6月3日 下午2:59:39</p>
  * @author gsu·napoleon
@@ -26,7 +28,8 @@ public enum MySpecialUtils {
 	PERMS_ADMIN("", 1 << 4),
 	PERMS_ALL("", (int)PERMS_READ.getValue() | (int)PERMS_WRITE.getValue() 
 			| (int)PERMS_CREATE.getValue() | (int)PERMS_DELETE.getValue() 
-			| (int)PERMS_ADMIN.getValue());
+			| (int)PERMS_ADMIN.getValue()),
+	STRING_FORMAT_SPECIFIER("String.format的正则表达式", "%(\\d+\\$)?([-#+ 0,(\\<]*)?(\\d+)?(\\.\\d+)?([tT])?([a-zA-Z%])");
 
 	private String name;
 	private Object value;

@@ -9,6 +9,8 @@ import java.util.Date;
 import org.apache.commons.lang3.time.FastDateFormat;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * <p>decription:</p>
@@ -17,6 +19,8 @@ import org.junit.Test;
  */
 public class MyDateUtilsTest {
 
+	private static final Logger logger = LoggerFactory.getLogger(MyDateUtilsTest.class);
+	
 	/**
 	 * <p>decription:</p>
 	 * <p>date:2015年6月2日 上午10:17:20</p>
@@ -57,4 +61,15 @@ public class MyDateUtilsTest {
 		System.err.println("****************** {" + MyDateFormatter.YYYY.formatter(new Date()) + "}");
 	}
 
+	@Test
+	public void testGetFirstDayOfMonth() throws ParseException {
+		Date date = MyDateFormatter.YYYY_MM_DD.parser("2015-06-01");
+		logger.debug("前一个月的第一天：{}, 最后一天：{}", 
+				MyDateFormatter.YYYY_MM_DD.formatter(MyDateUtils.getFirstDayOfMonth(date, -1)),
+				MyDateFormatter.YYYY_MM_DD.formatter(MyDateUtils.getLastDayOfMonth(date, -1)));
+		logger.debug("前两个月的第一天：{}, 最后一天：{}", 
+				MyDateFormatter.YYYY_MM_DD.formatter(MyDateUtils.getFirstDayOfMonth(date, -2)),
+				MyDateFormatter.YYYY_MM_DD.formatter(MyDateUtils.getLastDayOfMonth(date, -2)));
+	}
+	
 }
