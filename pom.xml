@@ -12,6 +12,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<testng-version>6.8.8</testng-version>
+		<junit-version>4.12</junit-version>
 		<spring-version>4.1.6.RELEASE</spring-version>
 		<spring-mock-version>2.0.8</spring-mock-version>
 		<spring-asm-version>3.1.4.RELEASE</spring-asm-version>
@@ -21,34 +23,44 @@
 		<spring-data-redis-version>1.5.0.RELEASE</spring-data-redis-version>
 		<spring-data-hadoop-version>2.1.2.RELEASE</spring-data-hadoop-version>
 		<aspectjweaver-version>1.7.4</aspectjweaver-version>
-		<junit-version>4.12</junit-version>
+		<fastjson-version>1.2.6</fastjson-version>
+		<geronimo-servlet_3.0_spec-version>1.0</geronimo-servlet_3.0_spec-version>
+		<javax-servlet-version>3.1.0</javax-servlet-version>
+		<apache-sling-xss-version>1.0.2</apache-sling-xss-version>
+		<esapi-version>2.1.0</esapi-version>
 		<commons-beanutils-version>1.9.2</commons-beanutils-version>
 		<commons-beanutils-core-version>1.8.3</commons-beanutils-core-version>
 		<commons-lang3-version>3.4</commons-lang3-version>
 		<commons-io-version>2.4</commons-io-version>
 		<commons-codec-version>1.10</commons-codec-version>
-		<commons-math3-version>3.2</commons-math3-version>
+		<commons-math3-version>3.5</commons-math3-version>
 		<commons-configuration-version>1.10</commons-configuration-version>
+		<commons-httpclient-version>3.1</commons-httpclient-version>
+		<commons-email-version>1.4</commons-email-version>
+		<commons-collections4-version>4.0</commons-collections4-version>
+		<commons-cli-version>1.3.1</commons-cli-version>
+		<commons-el-version>1.0</commons-el-version>
+		<commons-net-version>3.3</commons-net-version>
+		<guava-io-version>r03</guava-io-version>
+		<guava-version>18.0</guava-version>
+		<google-collections-version>1.0</google-collections-version>
 		<slf4j-api-version>1.7.12</slf4j-api-version>
+		<log4j-version>1.2.17</log4j-version>
 		<disruptor-version>3.3.2</disruptor-version>
 		<netty-version>4.0.21.Final</netty-version>
 		<protobuf-version>2.6.1</protobuf-version>
 		<zookeeper-version>3.4.6</zookeeper-version>
+		<hadoop-core-version>1.2.1</hadoop-core-version>
+		<hsqldb-version>2.3.3</hsqldb-version>
 		<geronimo-javamail-version>1.8.4</geronimo-javamail-version>
-		<commons-email-version>1.4</commons-email-version>
-		<commons-collections4-version>4.0</commons-collections4-version>
-		<testng-version>6.8.8</testng-version>
 		<mysql-connector-java-version>5.1.36</mysql-connector-java-version>
-		<guava-io-version>r03</guava-io-version>
-		<guava-version>18.0</guava-version>
-		<google-collections-version>1.0</google-collections-version>
 		<httpclient-version>4.5</httpclient-version>
-		<commons-httpclient-version>3.1</commons-httpclient-version>
+		<httpcore-version>4.4.1</httpcore-version>
 		<jsoup-version>1.8.2</jsoup-version>
 		<joda-time-version>2.8.1</joda-time-version>
 		<jaxb-api-version>2.2.12</jaxb-api-version>
-		<fastjson-version>1.2.6</fastjson-version>
-		<geronimo-servlet_3.0_spec-version>1.0</geronimo-servlet_3.0_spec-version>
+		<jxl-version>2.6</jxl-version>
+		<storm-core-version>0.9.5</storm-core-version>
 	</properties>
 
 	<dependencies>
@@ -67,7 +79,7 @@
 		<dependency>
 			<groupId>jexcelapi</groupId>
 			<artifactId>jxl</artifactId>
-			<version>2.6</version>
+			<version>${jxl-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -83,6 +95,11 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j-api-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -154,6 +171,36 @@
 			<groupId>commons-configuration</groupId>
 			<artifactId>commons-configuration</artifactId>
 			<version>${commons-configuration-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-cli</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>${commons-cli-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-el</groupId>
+			<artifactId>commons-el</artifactId>
+			<version>${commons-el-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>${httpcore-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>${commons-httpclient-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>${commons-net-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -276,16 +323,6 @@
 	        <version>${spring-data-hadoop-version}</version>
 	    </dependency> -->
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>${httpclient-version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-httpclient</groupId>
-			<artifactId>commons-httpclient</artifactId>
-			<version>${commons-httpclient-version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.jsoup</groupId>
 			<artifactId>jsoup</artifactId>
 			<version>${jsoup-version}</version>
@@ -316,11 +353,6 @@
 			<version>${fastjson-version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.zookeeper</groupId>
-			<artifactId>zookeeper</artifactId>
-			<version>${zookeeper-version}</version>
-		</dependency>
-		<dependency>
 	        <groupId>org.springframework.data</groupId>
 	        <artifactId>spring-data-redis</artifactId>
 	        <version>${spring-data-redis-version}</version>
@@ -334,6 +366,47 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-email</artifactId>
 			<version>${commons-email-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.owasp.esapi</groupId>
+			<artifactId>esapi</artifactId>
+			<version>${esapi-version}</version>
+		</dependency>	
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-core</artifactId>
+			<version>${hadoop-core-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>${zookeeper-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>${hsqldb-version}</version>
+		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>org.apache.storm</groupId>
+			<artifactId>storm-core</artifactId>
+			<version>${storm-core-version}</version>
+		</dependency> -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${javax-servlet-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>it.unimi.dsi</groupId>
+			<artifactId>fastutil</artifactId>
+			<version>7.0.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.fusesource.jansi</groupId>
+			<artifactId>jansi</artifactId>
+			<version>1.11</version>
 		</dependency>
 	</dependencies>
 </project>

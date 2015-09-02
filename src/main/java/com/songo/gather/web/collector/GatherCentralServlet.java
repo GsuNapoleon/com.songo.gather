@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,9 +74,9 @@ public class GatherCentralServlet extends HttpServlet {
 		String screen = "";
 		String from = req.getParameter("from");
 		Cookie[] cookies = req.getCookies();
-		Map<String, String> dealMaps = dealCookies(cookies);
-		String oldChannel = getValueByKey(dealMaps, "OLD_CHANNEL");
-		String pcgroupCID = getValueByKey(dealMaps, "PCGROUP_CID");
+		Map<String, String> fromChannelAndCIDMap = dealCookies(cookies);
+		String oldChannel = StringUtils.defaultIfBlank(MapUtils.getString(fromChannelAndCIDMap, "OLD_CHANNEL"), "");
+		String pcgroupCID = StringUtils.defaultIfBlank(MapUtils.getString(fromChannelAndCIDMap, "PCGROUP_CID"), "");
 		String pcxuv = addPCxuv(resp, req.getServerName(), cookies);
 		String adId = getAdId(req.getParameter("ad"));
 

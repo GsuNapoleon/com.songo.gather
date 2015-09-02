@@ -3,16 +3,24 @@
  */
 package org.apache.commons.collections4;
 
+import java.io.File;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.FalseFileFilter;
+import org.apache.commons.io.filefilter.IOFileFilter;
+import org.apache.commons.io.filefilter.PrefixFileFilter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.songo.gather.concurrent.disruptor.file.Data;
 
 /**
  * <p>decription:</p>
@@ -39,6 +47,9 @@ public class MapUtilsTest {
 		for (int i = 0; i < 10; i ++) {
 			map.put("k_" + i, "v_" + i);
 		}
+		logger.debug("getString, key:{}, value:{}", "k_0", MapUtils.getString(map, "k_0"));
+		logger.debug("getString, key:{}, value:{}", "k_11", MapUtils.getString(map, "k_11"));
+		logger.debug("getString of StringUtils, key:{}, value:{}", "k_11", StringUtils.defaultIfBlank(MapUtils.getString(map, "k_11"), ""));
 		for (Entry<String, String> e : map.entrySet()) {
 			logger.debug("fixed before:{key:{}, value:{}}", e.getKey(), e.getValue());
 		}
@@ -65,6 +76,36 @@ public class MapUtilsTest {
 		logger.debug("src1 equals src2 is result: {{}}", src1.equals(src2));
 		logger.debug("src1 equals src3 is result: {{}}", src1.equals(src3));
 		logger.debug("src1 equals src3 is result: {{}}", src1.equals(src3));
+	}
+	
+	@Test
+	public void testS() {
+		String line = "20150731000002	1	163.204.51.121	320*480	http://m.pcauto.com.cn/auto/nb34/	http://m.pcauto.com.cn/auto/brand.html	6661		7183	1436869141193.a.241677170	lastAccessTime=1438271983699|visits=14	1438272002138					0	0";
+		String [] fields = StringUtils.splitPreserveAllTokens(line, "\t", 20);
+		Data data = new Data();
+		data.setLine(line);
+		for (String f : fields) {
+			System.err.println(f);
+		}
+	}
+	
+	@Test
+	public void testF() {
+		File directory = new File("D:\\DevelopmentEnvironment\\counter\\auto\\work\\");
+		String [] extensions = {"1", "2"};
+		Collection<File> files = FileUtils.listFiles(directory, extensions, true);
+		System.out.println("**********************************************");
+		for (File f : files) {
+			System.err.println(f.getName());
+		}
+		System.out.println("**********************************************");
+		IOFileFilter fileFilter = new PrefixFileFilter("2015073100");
+		IOFileFilter dirFilter = FalseFileFilter.FALSE;
+		Collection<File> ffiles = FileUtils.listFiles(directory, fileFilter, dirFilter);
+		for (File ff : ffiles) {
+			System.err.println("F: " + ff.getName());
+		}
+		System.out.println("**********************************************");
 	}
 
 }

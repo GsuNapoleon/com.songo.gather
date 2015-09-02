@@ -86,4 +86,43 @@ public class MyStringUtilsTest {
 			System.err.println(sv);
 		}
 	}
+	
+	@Test
+	public void testXoy() {
+		int type = 8;
+		for (int i = 1; i <= 4; i++, type = type / 2) {
+    		boolean needCount = type % 2 == 1;
+    		switch (i){
+	    		case 1:
+	    			if (needCount) {
+	    				System.err.println("*******************UV***************");
+	    			} else {
+	    				System.err.println("*******************N-UV***************");
+	    			}
+	    			break;
+	    		case 2:
+	    			if (needCount) {
+	    				System.err.println("*******************IP***************");
+	    			} else {
+	    				System.err.println("*******************N-IP***************");
+	    			}
+	    			break;
+	    		case 3:
+	    			if (needCount) {
+	    				System.err.println("*******************VISIT***************");
+	    			} else {
+	    				System.err.println("*******************N-VISIT***************");
+	    			}
+	    			break;
+	    		case 4:
+	    			if (needCount) {
+	    				System.err.println("*******************PV***************");
+	    			} else {
+	    				System.err.println("*******************N-PV***************");
+	    			}
+	    			break;
+    		}
+    	}
+	}
+	
 }

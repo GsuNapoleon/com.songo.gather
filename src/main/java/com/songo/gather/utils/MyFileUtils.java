@@ -3,9 +3,19 @@
  */
 package com.songo.gather.utils;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.FalseFileFilter;
+import org.apache.commons.io.filefilter.IOFileFilter;
+import org.apache.commons.io.filefilter.PrefixFileFilter;
 
 /**
  * <p>
@@ -182,6 +192,18 @@ public final class MyFileUtils {
 
 		return result;
 	}
+	
+	public void depthDeleteFile(String filePath) {
+		File rootDir = new File(filePath);
+		if (!rootDir.isDirectory()) {
+			return;
+		}
+		try {
+			FileUtils.cleanDirectory(rootDir);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static class FileItem {
 		Date startTime;
@@ -199,5 +221,56 @@ public final class MyFileUtils {
 			return buf.toString();
 		}
 	}
+	
+	public static void combinerFile(String dir, String prefix) throws IOException {
+		List<File> files = (List<File>) prefixFilterFile(dir, prefix);
+		System.err.println(files.size());
+		BufferedReader br = null;
+		try {
+			List<String> lines = new ArrayList<String>();
+			int num = 0;
+			int index = 0;
+			for (int i = 0; i < files.size(); i ++) {
+				File f = files.get(i);
+				System.err.println(f.getName());
+				lines.addAll(FileUtils.readLines(f));
+				if (num > 3) {
+					File out = new File("E:\\counterworkspace\\counter\\auto\\com\\" + index + ".1");
+					if (!out.exists()) {
+						out.createNewFile();
+					}
+					FileUtils.writeLines(out, lines, true);
+					lines.clear();
+					num = 0;
+					index ++;
+					continue;
+				}
+				num ++;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (br != null) {
+				br.close();
+			}
+			
+		}
+		
+	}
 
+	/**
+	 * <p>decription:</p>
+	 * <p>date:2015年8月25日 下午2:44:51</p>
+	 * @author gsu·napoleon
+	 * @param dir
+	 * @param prefix
+	 * @return
+	 */
+	public static Collection<File> prefixFilterFile(String dir, String prefix) {
+		IOFileFilter fileFilter = new PrefixFileFilter(prefix);
+		IOFileFilter dirFilter = FalseFileFilter.FALSE;
+		Collection<File> files = FileUtils.listFiles(new File(dir), fileFilter, dirFilter);
+		return files;
+	}
+	
 }

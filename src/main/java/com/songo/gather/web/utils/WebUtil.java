@@ -16,6 +16,7 @@ import java.sql.DriverManager;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import org.apache.commons.collections.MapUtils;
@@ -359,6 +360,23 @@ public class WebUtil {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	private static final String [] PROXY_REMOTE_IP_ADDRESS= {"Cdn-Src-Ip", "X-Forwarded-For", "X-Real-IP"};
+	
+	public static String getRemoteIp(HttpServletRequest request) {
+		for (String header : PROXY_REMOTE_IP_ADDRESS) {
+			String ip = request.getHeader(header);
+			if (StringUtils.isNotBlank(ip)) {
+				return getRemoteIpFromProxy(ip);
+			}
+		}
+		return request.getRemoteAddr();
+	}
+	
+	private static String getRemoteIpFromProxy(String ip) {
+		int commaOffset = StringUtils.indexOf(ip, ",");
+		return commaOffset < 0 ? ip : StringUtils.substring(ip, 0, commaOffset);
 	}
 	
 	public static void main(String[] args){
