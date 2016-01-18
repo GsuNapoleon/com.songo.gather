@@ -10,8 +10,8 @@ package com.songo.gather.web.weixin.qy.utils;
  */
 public enum DevApp {
 
-	APP_CORP_ID("", "企业号ID"),
-	APP_CORP_SECRET("", "开发者凭证密钥"),
+	APP_CORP_ID("wx741487935be9c835", "企业号ID"),
+	APP_CORP_SECRET("5Vv5oqcvF_wBE2SIWrxfxKXeD8qoPZUCuMo9bA9fVZ_pSrifDRTgqiADyEnn6Fk5", "开发者凭证密钥"),
 	APP_PARTY_ID("11", "组ID"),
 	APP_AGENT_ID("2", "应用ID"),
 	APP_ACCESS_TOKEN_EXPIRED("7200", "默认有效时间"),

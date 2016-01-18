@@ -3,8 +3,18 @@
  */
 package com.songo.gather.utils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.apache.commons.lang.time.FastDateFormat;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -123,6 +133,75 @@ public class MyStringUtilsTest {
 	    			break;
     		}
     	}
+	}
+	
+	@Test
+	public void testStringN() {
+		String x = "1,2,3,4,5,6,7,8,9";
+		String [] xs = x.split(",");
+		StringBuilder builder = new StringBuilder();
+		String prefix = "";
+		for (String s : xs) {
+			builder.append(prefix).append(s);
+			prefix = ",";
+		}
+		System.out.println(builder.toString());
+	}
+	
+	@Test
+	public void testUrl() {
+		Pattern p = Pattern.compile("http://gm.*?(?<!\\.pconline|\\.pcauto).com.*");
+		System.out.println(p.matcher("http://gm.1pcauto.com.cn/qiche/qc_t2.html").find());
+		System.out.println(p.matcher("http://gm.pcauto1.com.cn/qiche/qc_t2.html").find());
+		System.out.println(p.matcher("http://gm.wpcauto.com.cn/qiche/qc_t2.html").find());
+		System.out.println(p.matcher("http://gm.pcautow.com.cn/qiche/qc_t2.html").find());
+		System.out.println(p.matcher("http://gm.pcauto.com.cn/qiche/qc_t2.html").find());
+		System.out.println(p.matcher("http://gm.1pconline.com.cn/qiche/qc_t2.html").find());
+		System.out.println(p.matcher("http://gm.pconline1.com.cn/qiche/qc_t2.html").find());
+		System.out.println(p.matcher("http://gm.wpconline.com.cn/qiche/qc_t2.html").find());
+		System.out.println(p.matcher("http://gm.pconlinew.com.cn/qiche/qc_t2.html").find());
+		System.out.println(p.matcher("http://gm.pconline.com.cn/qiche/qc_t2.html").find());
+	}
+	
+	@Test
+	public void testFile() throws Exception {
+		Pattern p = Pattern.compile("http://gm.*?(?<!\\.pconline|\\.pcauto).com.*");
+		String referer = "http://gm.pconline-555.com.cn/qiche/qc_t2.html";
+		if (p.matcher(referer).find()) {
+			FastDateFormat fdf = FastDateFormat.getInstance("yyyyMMdd");
+			File file = new File("E:\\counterworkspace\\data\\" + fdf.format(new Date()) + "-gm-refererS.txt");
+			StringBuilder sb = new StringBuilder();
+			if (file.exists() && file.isFile()) {
+				BufferedReader reader = new BufferedReader(new FileReader(file));
+				String url;
+				boolean isExists = false;
+				while ((url = reader.readLine()) != null) {
+					String [] urls = url.split("\t");
+					if (StringUtils.equals("T", urls[2])) {
+						continue;
+					}
+					isExists = StringUtils.equals(referer, urls[0]);
+					sb.append(urls[0]).append('\t').append(isExists ? Integer.valueOf(urls[1]) + 1 : urls[1]).append('\t').append("F").append('\n');
+				}
+				if (!isExists) {
+					sb.append(referer).append('\t').append(1).append('\t').append("F").append('\n');
+				}
+				reader.close();
+			} else {
+				file.createNewFile();
+				sb.append(referer).append('\t').append(1).append('\t').append("F").append('\n');
+			}
+			PrintWriter writer = new PrintWriter(file);
+			writer.write(sb.toString());
+			writer.close();
+		}
+	}
+	
+	@Test
+	public void testSS() {
+		String s = "###http://price.pcauto.com.cn/qcbk/zymc/qtmc/1210/2191565.html";
+		System.out.println(s.split("###")[0]);
+		System.out.println(s.split("###")[1]);
 	}
 	
 }

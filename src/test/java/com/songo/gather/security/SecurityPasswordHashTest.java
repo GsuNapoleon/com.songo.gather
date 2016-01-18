@@ -3,14 +3,11 @@
  */
 package com.songo.gather.security;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.songo.gather.utils.MyStringUtils;
 import com.songo.gather.utils.MySecurityPasswordHash;
+import com.songo.gather.utils.MyStringUtils;
 
 /**
  * <p>decription:</p>
@@ -31,7 +28,7 @@ public class SecurityPasswordHashTest {
 
 	@Test
 	public void test() {
-		String hash = MySecurityPasswordHash.base64Hash("123456789holdfishplam##", "Key!@#$%^&*(){}001");
+		String hash = MySecurityPasswordHash.base64Hash("123456789holdfishplam##", "Key!@#$%^&*(){}009");
 		System.out.println(hash.length());
 		String x = String.valueOf(System.currentTimeMillis())
                 + "." + MyStringUtils.getUuid(4)

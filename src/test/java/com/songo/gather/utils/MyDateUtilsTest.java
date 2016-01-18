@@ -72,4 +72,19 @@ public class MyDateUtilsTest {
 				MyDateFormatter.YYYY_MM_DD.formatter(MyDateUtils.getLastDayOfMonth(date, -2)));
 	}
 	
+	@Test
+	public void testGetTodayBeforeDays() throws Exception {
+		Date date = MyDateFormatter.YYYY_MM_DD.parser("2015-09-28");
+		logger.info("今天：[{}]", MyDateUtils.getToday(date));
+		logger.info("上周同日：[{}]", MyDateFormatter.YYYY_MM_DD_HH_MM_SS.formatter(MyDateUtils.getTheSameDateOfWeeks(date, 0)));
+		logger.info("上周同日：[{}]", MyDateFormatter.YYYY_MM_DD_HH_MM_SS.formatter(MyDateUtils.getTheSameDateOfWeeks(date, -1)));
+		logger.info("上上周同日：[{}]", MyDateFormatter.YYYY_MM_DD_HH_MM_SS.formatter(MyDateUtils.getTheSameDateOfWeeks(date, -2)));
+		logger.info("前三周同日：[{}]", MyDateFormatter.YYYY_MM_DD_HH_MM_SS.formatter(MyDateUtils.getTheSameDateOfWeeks(date, -3)));
+		logger.info("前四周同日：[{}]", MyDateFormatter.YYYY_MM_DD_HH_MM_SS.formatter(MyDateUtils.getTheSameDateOfWeeks(date, -4)));
+		logger.info("下周同日：[{}]", MyDateFormatter.YYYY_MM_DD_HH_MM_SS.formatter(MyDateUtils.getTheSameDateOfWeeks(date, 1)));
+		logger.info("下下周同日：[{}]", MyDateFormatter.YYYY_MM_DD_HH_MM_SS.formatter(MyDateUtils.getTheSameDateOfWeeks(date, 2)));
+		logger.info("后三周同日：[{}]", MyDateFormatter.YYYY_MM_DD_HH_MM_SS.formatter(MyDateUtils.getTheSameDateOfWeeks(date, 3)));
+		logger.info("后四周同日：[{}]", MyDateFormatter.YYYY_MM_DD_HH_MM_SS.formatter(MyDateUtils.getTheSameDateOfWeeks(date, 4)));
+	}
+	
 }

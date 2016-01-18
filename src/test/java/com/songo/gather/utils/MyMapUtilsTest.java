@@ -3,6 +3,7 @@
  */
 package com.songo.gather.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,6 +83,23 @@ public class MyMapUtilsTest {
 		logger.debug(
 				"测试<Object, Object>中Object instanceof String,按Key升序排序结果：<<{}>>",
 				listsOfKey);
+	}
+	
+	@Test
+	public void testMapArrays() {
+		Map<Long, Long[]> results = new HashMap<Long, Long[]>();
+		results.put(1L, new Long[]{1L, 2L, 3L, 4L});
+		for (int i = 0; i < 5; i ++) {
+			Long key = Long.parseLong(i + "");
+			if (results.containsKey(key)) {
+				Long [] tLongs = results.get(key);
+				System.out.println(tLongs.length);
+			}
+		}
+		List<Long> ss = new ArrayList<Long>();
+		ss.add(1L);
+		ss.add(2L);
+		System.out.println(ss.toString());
 	}
 
 	/**

@@ -3,13 +3,18 @@
  */
 package com.songo.gather.lang;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
+
+import sun.nio.cs.ext.GBK;
 
 /**
  * <p>decription:</p>
@@ -37,6 +42,11 @@ public class StringTest {
 	 */
 	@Test
 	public void testString() {
+		try {
+			System.out.println(StringUtils.toEncodedString("中华人民共和国".getBytes("UTF-8"), new GBK()));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		System.out.println(Type.IP.equals("IP"));
 	}
 	
@@ -649,5 +659,41 @@ public class StringTest {
 	public void testIntern() {
 		fail("Not yet implemented");
 	}
-
+	
+	@Test
+	public void testSQL() {
+		int hour = 1;
+		int ymd = 20151008;
+		StringBuilder builder = new StringBuilder();
+		builder.append("select cid, ");
+		if (hour == 0) {
+			builder.append("v0 v ");
+		} else {
+			builder.append(" case when v").append(hour)
+					.append(" > v").append(hour - 1)
+					.append(" then ");
+			builder.append("(v").append(hour)
+					.append(" - v").append(hour - 1)
+					.append(") else 0 end v");
+		}
+		builder.append(" from ").append("cnt_pv_hourly_cum_")
+				.append(ymd / 10000)
+				.append(" where sid = ").append(1)
+				.append(" and ymd = ").append(ymd)
+				.append(" and cid = ").append(1);
+		System.err.println(builder.toString());
+	}
+	
+	@Test
+	public void testList() {
+		List<Integer> list = new ArrayList<Integer>(16);
+		for (Integer i : list) {
+			System.out.println(i);
+		}
+		long [] ls = new long[4];
+		for (int i = 0; i < ls.length - 1; i ++) {
+			System.out.println(ls[i]);
+		}
+	}
+	
 }

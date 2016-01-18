@@ -5,7 +5,7 @@
 	<appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
 		<param name="encoding" value="utf-8" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{HH:mm:ss:SSS} [%-4r] [%t] %p %l %m%n" />
+			<param name="ConversionPattern" value="%m%n" />
 		</layout>
 	</appender>
 	
@@ -20,7 +20,7 @@
 		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<!-- 设置输出文件项目和格式 -->
-			<param name="ConversionPattern" value="%d{HH:mm:ss:SSS} [%-4r] [%t] %p %l %m%n" />
+			<param name="ConversionPattern" value="%m%n" />
 		</layout>
 		<!--滤镜设置输出的级别 -->
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">

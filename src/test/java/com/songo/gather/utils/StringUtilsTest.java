@@ -5,9 +5,14 @@ package com.songo.gather.utils;
 
 import static org.junit.Assert.fail;
 
+import java.net.URLDecoder;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * <p>decription:</p>
@@ -1477,7 +1482,34 @@ public class StringUtilsTest {
 	 */
 	@Test
 	public void testToEncodedString() {
-		fail("Not yet implemented");
+	}
+	
+	@Test
+	public void testList() {
+		System.out.println(hasExistsFilterChannel("", 1));
+		System.out.println(hasExistsFilterChannel("0", 1));
+		System.out.println(hasExistsFilterChannel("0,1", 1));
 	}
 
+	private boolean hasExistsFilterChannel(String filterChannels, long cid) {
+        if (StringUtils.isBlank(filterChannels)) {
+            return false;
+        }
+        String [] channels = filterChannels.split(",");
+        for (String channel : channels) {
+            if (StringUtils.equals(channel, String.valueOf(cid))) {
+                return true;
+            }
+        }
+        return false;
+    }
+	
+	@Test
+	public void testUrl() throws Exception {
+		String referer = "http%3A%2F%2Fwww.baidu.com%2Flink%3Furl%3DCRktSIu24hENiJNst32z5ampacG7mGFnZ7JEGWCY5fdSYkqNX1vaIbJPYooothKH_a3ziLpeb2fLDvuhHfQemq%26wd%3D%26eqid%3D963fb80800007e4a000000025606ced1";
+		String enReferer = URLDecoder.decode(referer, "gbk");
+		System.out.println(enReferer);
+		System.out.println("汗".length());
+	}
+	
 }

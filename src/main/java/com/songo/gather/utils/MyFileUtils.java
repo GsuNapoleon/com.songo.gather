@@ -5,12 +5,14 @@ package com.songo.gather.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeSet;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FalseFileFilter;
@@ -271,6 +273,39 @@ public final class MyFileUtils {
 		IOFileFilter dirFilter = FalseFileFilter.FALSE;
 		Collection<File> files = FileUtils.listFiles(new File(dir), fileFilter, dirFilter);
 		return files;
+	}
+	
+	public static String[] sortFileName(String[] files) {
+		//对文件进行排序，确保每次都是有序
+        TreeSet<String> tree = new TreeSet<String>();
+        for (String file : files) {
+        	tree.add(file);
+        }
+        String[] _files = new String[files.length];
+        for (int i = 0; i < files.length; i++) {
+        	_files[i] = tree.pollFirst();
+        }
+        return _files;
+	}
+	
+	/**
+	 * 得到某个文件目录下某个时间的全部日志，并对日志按时间进行排序
+	 * @param work
+	 * @param time
+	 * @return
+	 */
+	public static String[] getFiles(String work, final String time) {
+		File dir = new File(work);
+        String[] files = dir.list(new FilenameFilter() {
+            public boolean accept(File dir, String name) {
+                if (name.startsWith(time)){
+                	return true;                        
+                }
+                return false;
+            }
+        });
+        files = sortFileName(files);
+        return files;
 	}
 	
 }

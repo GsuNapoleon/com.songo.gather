@@ -50,12 +50,8 @@ public final class MyDateUtils {
 	}
 	
 	public static int getMonthDays(String date) throws ParseException {
-		
 		Date localDate = StringUtils.isNotEmpty(date) ? MyDateFormatter.YYYY_MM_DD.parser(date) : new Date();
-		
-		Calendar c = Calendar.getInstance();
-		c.setTime(localDate);
-		return c.getActualMaximum(Calendar.DAY_OF_MONTH);
+		return getMonthDays(localDate);
 	}
 	
 	public static int getNextYm(int ym) {
@@ -110,5 +106,54 @@ public final class MyDateUtils {
     	calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
     	return calendar.getTime();
     }
+    
+    public static Date getToday(Date date) {
+    	
+    	if (date == null) {
+    		date = new Date();
+    	}
+    	
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(new Date());
+    	if (cal.get(Calendar.HOUR_OF_DAY) == 0) {
+    		cal.add(Calendar.HOUR_OF_DAY, -1);
+    	}
+    	return cal.getTime();
+    }
+    
+    /**
+     * 
+     * <p>decription:</p>
+     * <p>date:2015年9月28日 上午9:28:27</p>
+     * @author gsu·napoleon
+     * @param date		默认为今天
+     * @param amount	正数：表示当前周往后数的第amount周；负数：表示当前周往前数的第amount周；0：表示本周当日
+     * @return
+     */
+    public static Date getTheSameDateOfWeeks(Date date, int amount) {
+    	Date localDate = getToday(date);
+    	Calendar c = Calendar.getInstance();
+    	c.setTime(localDate);
+    	c.add(Calendar.DATE, amount * 7);
+    	return c.getTime();
+    }
+    
+//    private void initTask() {
+//		Calendar cal = Calendar.getInstance();
+//		cal.setTime(t1.getDate());
+//		if (t1.getHour() == 0) {
+//			cal.add(Calendar.HOUR_OF_DAY, -1);
+//		}
+//		today = date2ymd(new Date(cal.getTimeInMillis()));
+//		//7天前
+//		cal.add(Calendar.DATE, -7);
+//		preDate1 = date2ymd(new Date(cal.getTimeInMillis()));
+//		//14天前
+//		cal.add(Calendar.DATE, -7);
+//		preDate2 = date2ymd(new Date(cal.getTimeInMillis()));
+//		//21天前
+//		cal.add(Calendar.DATE, -7);
+//		preDate3 = date2ymd(new Date(cal.getTimeInMillis()));
+//	}
     
 }

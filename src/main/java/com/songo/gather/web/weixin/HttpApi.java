@@ -108,7 +108,8 @@ public class HttpApi {
 			URLConnection uc = null;
 			uc = url.openConnection();
 			uc.setDoOutput(true);
-			uc.setRequestProperty("Content-Type", "text/xml");
+//			uc.setRequestProperty("Content-Type", "text/xml");
+			uc.setRequestProperty("Content-Type", "application/json");
 			
 			if (params != null && !params.isEmpty()) {
 				Iterator<String> keyIt = params.keySet().iterator();
